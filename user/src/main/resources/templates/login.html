@@ -11,8 +11,7 @@
                 <h1>超市订单管理系统</h1>
             </header>
             <section class="loginCont">
-                <form class="loginForm" th:action="@{/user/dologin.html}"
-                      action="${pageContext.request.contextPath }/user/dologin.html"  name="actionForm" id="actionForm"  method="post" >
+                <form class="loginForm" th:action="@{/user/login.html}" name="actionForm" id="actionForm"  method="post" >
                     <div class="info" th:text="${error}">服务器错误</div>
                     <div class="inputbox">
                         <label for="user">用户名：</label>

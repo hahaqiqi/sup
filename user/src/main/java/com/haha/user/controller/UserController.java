@@ -1,5 +1,8 @@
 package com.haha.user.controller;
 
+import com.haha.user.entity.User;
+import com.haha.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/login.html",method = RequestMethod.GET)
 	public String tologin(HttpServletRequest request){
@@ -25,8 +30,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login.html",method = RequestMethod.POST)
-	public String login(){
-
-		return "/login.html";
+	public String login(@RequestParam(value = "userCode",required = true) String userCode
+			,@RequestParam(value = "userPassword",required = true) String userPassword
+			,HttpServletRequest request
+			,HttpSession session){
+		User user= userService.login(userCode,userPassword);
+		if(user==null){
+			request.setAttribute("error","用户名或密码错误");
+			return "/login.html";
+		}
+		session.setAttribute("usersession",user);
+		return "/farme.html";
 	}
 }
