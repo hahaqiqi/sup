@@ -16,5 +16,12 @@ import java.util.List;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService{
-	
+	@Override
+	public User login(String userCode, String userPassword) {
+		User user=new User();
+		user.setId(1);
+		user.setUserCode("admin");
+		user.setUserPassword("123456");
+		return user;
+	}
 }
