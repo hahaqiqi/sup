@@ -13,6 +13,7 @@
             <section class="loginCont">
                 <form class="loginForm" th:action="@{/user/login.html}" name="actionForm" id="actionForm"  method="post" >
                     <div class="info" th:text="${error}">服务器错误</div>
+                    <!--<div th:text="${session.usersession.userCode}">aaa</div>-->
                     <div class="inputbox">
                         <label for="user">用户名：</label>
                         <input type="text" class="input-text" id="userCode" name="userCode" placeholder="请输入用户名" required/>

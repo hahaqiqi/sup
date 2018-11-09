@@ -1,7 +1,10 @@
 package com.haha.user.service;
 
 import com.haha.user.dao.UserMapper;
+import com.haha.user.emums.ResultEnum;
 import com.haha.user.entity.User;
+import com.haha.user.exception.UserException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +19,20 @@ import java.util.List;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService{
+	@Autowired
+	public UserMapper userMapper;
+
+	@Override
+	public List<User> getUserList(String queryUserName, int queryUserRole, int currentPageNo, int pageSize) {
+		return userMapper.getUserList(queryUserName,queryUserRole,currentPageNo,pageSize);
+	}
+
 	@Override
 	public User login(String userCode, String userPassword) {
-		User user=new User();
-		user.setId(1);
-		user.setUserCode("admin");
-		user.setUserPassword("123456");
+		User user=userMapper.getLoginUser(userCode,userPassword);
+		if(null==user){
+			throw new UserException(ResultEnum.USER_ERROR);
+		}
 		return user;
 	}
 }
